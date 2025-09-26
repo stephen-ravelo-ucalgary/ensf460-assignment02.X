@@ -73,7 +73,7 @@ int main(void) {
     
     AD1PCFG = 0xFFFF; /* keep this line as it sets I/O pins that can also be analog to be digital */  
   
-    newClk(500);
+    newClk(32);
     
     TRISBbits.TRISB9 = 0;
     TRISBbits.TRISB7 = 1;
@@ -87,19 +87,34 @@ int main(void) {
         if (PORTBbits.RB7 == 0)
         {
             LATBbits.LATB9 = 1;
-            delay_quarter_sec(4);
+            delay_ms(250);
             LATBbits.LATB9 = 0;
+            delay_ms(250);
+        }
+        else if (PORTBbits.RB4 == 0)
+        {
+            LATBbits.LATB9 = 1;
+            delay_ms(1000);
+            LATBbits.LATB9 = 0;
+            delay_ms(1000);
+        }
+        else if (PORTAbits.RA4 == 0)
+        {
+            LATBbits.LATB9 = 1;
+            delay_ms(6000);
+            LATBbits.LATB9 = 0;
+            delay_ms(6000);
         }
     }
     
     return 0;
 }
 
-void delay_quarter_sec(uint16_t time_quarter_sec)
+void delay_ms(uint16_t time_ms)
 {
     //T2CON config
     T2CONbits.T32 = 0; // operate timer 2 as 16 bit timer
-    T2CONbits.TCKPS = 3; // set prescaler
+    T2CONbits.TCKPS = 1; // set prescaler
     T2CONbits.TCS = 0; // use internal clock
     T2CONbits.TGATE = 0;
     T2CONbits.TSIDL = 0; //operate in idle mode
@@ -109,7 +124,7 @@ void delay_quarter_sec(uint16_t time_quarter_sec)
     IFS0bits.T2IF = 0;
     IEC0bits.T2IE = 1; //enable timer interrupt
     
-    PR2 = 244 * time_quarter_sec; // set the count value
+    PR2 = 2 * time_ms; // set the count value
     TMR2 = 0;
     
     T2CONbits.TON = 1;
@@ -121,8 +136,6 @@ void delay_quarter_sec(uint16_t time_quarter_sec)
 
 // Timer 2 interrupt service routine
 void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void){
-    //Don't forget to clear the timer 2 interrupt flag!
-    
     IFS0bits.T2IF=0; //Clear timer 2 interrupt flag
     T2CONbits.TON=0;
     TMR2flag = 1; // global variable created by user
