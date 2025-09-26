@@ -84,27 +84,39 @@ int main(void) {
     CNPU1bits.CN0PUE = 1;
     
     while(1) {
-        if (PORTBbits.RB7 == 0)
+        if (PORTBbits.RB7 == 0 || PORTBbits.RB4 == 0 || PORTAbits.RA4 == 0)
         {
-            LATBbits.LATB9 = 1;
-            delay_ms(250);
-            LATBbits.LATB9 = 0;
-            delay_ms(250);
+            delay_ms(10);
+            if (PORTBbits.RB7 == 0 && PORTBbits.RB4 == 0)
+            {
+                LATBbits.LATB9 = 1;
+                delay_ms(1);
+                LATBbits.LATB9 = 0;
+                delay_ms(1);
+            }
+            else if (PORTBbits.RB7 == 0)
+            {
+                LATBbits.LATB9 = 1;
+                delay_ms(250);
+                LATBbits.LATB9 = 0;
+                delay_ms(250);
+            }
+            else if (PORTBbits.RB4 == 0)
+            {
+                LATBbits.LATB9 = 1;
+                delay_ms(1000);
+                LATBbits.LATB9 = 0;
+                delay_ms(1000);
+            }
+            else if (PORTAbits.RA4 == 0)
+            {
+                LATBbits.LATB9 = 1;
+                delay_ms(6000);
+                LATBbits.LATB9 = 0;
+                delay_ms(6000);
+            }
         }
-        else if (PORTBbits.RB4 == 0)
-        {
-            LATBbits.LATB9 = 1;
-            delay_ms(1000);
-            LATBbits.LATB9 = 0;
-            delay_ms(1000);
-        }
-        else if (PORTAbits.RA4 == 0)
-        {
-            LATBbits.LATB9 = 1;
-            delay_ms(6000);
-            LATBbits.LATB9 = 0;
-            delay_ms(6000);
-        }
+        
     }
     
     return 0;
