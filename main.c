@@ -1,6 +1,6 @@
 /*
  * File:   main.c
- * Author: UPDATE THIS WITH YOUR GROUP MEMBER NAMES OR POTENTIALLY LOSE POINTS
+ * Author: Aaron Lauang, Stephen Ravelo, Alexa Gonzalez Lucio
  *
  * Created on: USE THE INFORMATION FROM THE HEADER MPLAB X IDE GENERATES FOR YOU
  */
@@ -50,7 +50,7 @@
 // #pragma config statements should precede project file includes.
 
 #include <xc.h>
-#include "clkChange.h"
+#include "IOs.h"
 
 // Remember, you can use the "extern" keyword to access global variables defined in other files
 /**
@@ -70,21 +70,9 @@ int main(void) {
      */
     
     AD1PCFG = 0xFFFF; /* keep this line as it sets I/O pins that can also be analog to be digital */
-       
-  
-    while(1) {
-        
-
-    }
+    newClk(32);
+    IOinit();
+    IOcheck();
     
     return 0;
 }
-
-
-// Timer 2 interrupt service routine
-void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void){
-    //Don't forget to clear the timer 2 interrupt flag!
-}
-
-// You might it helpful to define the interrupt service routine for Timer 1 here
-
