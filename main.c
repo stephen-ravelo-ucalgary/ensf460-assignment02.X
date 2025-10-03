@@ -70,9 +70,13 @@ int main(void) {
      */
     
     AD1PCFG = 0xFFFF; /* keep this line as it sets I/O pins that can also be analog to be digital */
-    newClk(32);
+    newClk(8);
     IOinit();
-    IOcheck();
+    
+    while (1)
+    {
+        IOcheck();
+    }
     
     return 0;
 }

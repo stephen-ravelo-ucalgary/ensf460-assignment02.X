@@ -1,10 +1,10 @@
 #include "TimeDelay.h"
 
-int TMR2flag;
+uint16_t TMR2flag;
 
 void delay_ms(uint16_t time_ms) {
     T2CONbits.T32 = 0;
-    T2CONbits.TCKPS = 1;
+    T2CONbits.TCKPS = 3;
     T2CONbits.TCS = 0;
     T2CONbits.TGATE = 0;
     T2CONbits.TSIDL = 0;
@@ -13,7 +13,7 @@ void delay_ms(uint16_t time_ms) {
     IFS0bits.T2IF = 0;
     IEC0bits.T2IE = 1;
     
-    PR2 = 2 * time_ms;
+    PR2 = 16 * time_ms;
     TMR2 = 0;
     
     T2CONbits.TON = 1;
