@@ -83,17 +83,3 @@ void IOcheck()
     
     return;
 }
-
-void check_time_elapsed() {
-    if(time_elapsed_ms >= 500) {
-        if(LATAbits.LATA6 == 1) {
-            LATAbits.LATA6 = 0;
-        }
-        else {
-            LATAbits.LATA6 = 1;
-        }
-        time_elapsed_ms = 0;
-        
-    }
-    return;
-}
