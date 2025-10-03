@@ -28,6 +28,10 @@ void IOcheck()
     
     if(PORTBbits.RB7 == 0 && PORTBbits.RB4 == 0) 
     {
+        if (LATBbits.LATB9 = 1)
+            LATBbits.LATB9 = 0;
+        else
+            LATBbits.LATB9 = 1;
     }
     else if (PORTBbits.RB7 == 0) 
     {
