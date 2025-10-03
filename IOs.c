@@ -28,10 +28,14 @@ void IOcheck()
     
     if(PORTBbits.RB7 == 0 && PORTBbits.RB4 == 0) 
     {
-        if (LATBbits.LATB9 = 1)
+        if (time_elapsed_ms % 2 == 0)
+        {
             LATBbits.LATB9 = 0;
-        else
+        }
+        else if (time_elapsed_ms % 1 == 0)
+        {
             LATBbits.LATB9 = 1;
+        }
     }
     else if (PORTBbits.RB7 == 0) 
     {
@@ -73,7 +77,9 @@ void IOcheck()
     time_elapsed_ms += 1;
 
     if (time_elapsed_ms >= 12000)
+    {        
         time_elapsed_ms = 0;
+    }
     
     return;
 }
